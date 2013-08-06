@@ -79,12 +79,13 @@ $backend = new MemcacheCommStore('127.0.0.1', '11211', $channelID);
 
 // Create a communication channel on top of that backend
 $clientid = uniqid('client_'); // All clients need a unique identifier so that they can be identified!
-$channel = new CommChannel($backend, $clientid);
+$channel = new JSCommChannel($backend, $clientid);
 
-// Send a message
+// Send a message with type "msg" and a friendly message as the payload
 $channel->send("msg", "Hello javascript client!");
 
 // Look for messages
+// These are associative arrays of the form array(type=>"some_type_eg_msg", msg=>"payload!", from=>"client_id_of_sender")
 $messages = $channel->getMessages();
 
 ```
